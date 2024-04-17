@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+
 module Linkedin
   class Profile
     ATTRIBUTES = %w(
@@ -92,11 +93,11 @@ module Linkedin
     end
 
     def past_companies
-      @past_companies ||= get_companies.reject { |c| c[:end_date] == 'Present' }
+      @past_companies ||= companies.reject { |c| c[:end_date] == 'Present' }
     end
 
     def current_companies
-      @current_companies ||= get_companies.find_all { |c| c[:end_date] == 'Present' }
+      @current_companies ||= companies.find_all { |c| c[:end_date] == 'Present' }
     end
 
     def education
@@ -200,6 +201,7 @@ module Linkedin
     end
 
     private
+
     def get_awards
       if @awards
         return @awards
@@ -217,7 +219,7 @@ module Linkedin
       @awards
     end
 
-    def get_companies
+    def companies
       if @companies
         return @companies
       else
